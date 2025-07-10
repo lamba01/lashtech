@@ -16,7 +16,9 @@ function ForgotPassword() {
 
     try {
       await sendPasswordResetEmail(auth, email);
-      setMessage("Password reset email sent! Check your inbox.");
+      setMessage(
+        "Password reset email sent! Check your inbox and spam folder."
+      );
     } catch (err) {
       console.error(err);
       setError("Failed to send reset email. Try again.");

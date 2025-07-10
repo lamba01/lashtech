@@ -99,7 +99,12 @@ function Login() {
                   </label>
                 </div>
                 <p>
-                  <Link to={`/forgot-password`}>forgot password</Link>
+                  <Link
+                    to={`/forgot-password`}
+                    className="capitalize text-[#FB7902] underline"
+                  >
+                    forgot password
+                  </Link>
                 </p>
               </div>
               <button
