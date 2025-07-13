@@ -1,7 +1,8 @@
-import React from "react";
 import Topnav from "../components/Topnav";
 import Hero from "../sections/Hero";
 import About from "../sections/About";
+import Services from "../sections/Services";
+import BookingForm from "../components/Bookingcomponent";
 
 function Home() {
   return (
@@ -9,6 +10,8 @@ function Home() {
       <Topnav />
       <Hero />
       <About />
+      <Services />
+      <BookingForm />
     </div>
   );
 }

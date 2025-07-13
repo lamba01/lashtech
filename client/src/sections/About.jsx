@@ -7,7 +7,7 @@ import facials from "../assets/facials.jpg";
 function About() {
   return (
     <section>
-      <h2 className="text-4xl w-11/12 md:w-1/2 text-center mx-auto font-bold mb-8 mt-14">
+      <h2 className="sm:text-4xl text-2xl w-11/12 md:w-1/2 text-center mx-auto font-bold mb-8 mt-14">
         Enhance your inner radiance at our{" "}
         <span className="text-[#FB7902]">beauty sanctuary</span> and let your
         true beauty shine.
