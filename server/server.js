@@ -2,13 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-
+const connectDB = require("./config/db");
 const bookingRoutes = require("./routes/bookingRoutes");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+// Connect to MongoDB
+connectDB();
 
 app.use("/api/bookings", bookingRoutes);
 

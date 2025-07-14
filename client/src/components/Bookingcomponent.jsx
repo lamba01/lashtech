@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import bookingbg from "../assets/bookinbg.png";
 
 const services = {
   lashes: [
@@ -85,7 +86,12 @@ const BookingForm = () => {
   const [category, setCategory] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
   const [lashAddOns, setLashAddOns] = useState([]);
-  const [formData, setFormData] = useState({ name: "", phone: "", date: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    date: "",
+    time: "",
+  });
   const [total, setTotal] = useState(0);
 
   const handleServiceToggle = (service) => {
@@ -133,7 +139,7 @@ const BookingForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("/api/bookings", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/bookings`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -149,124 +155,164 @@ const BookingForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-xl mx-auto bg-white shadow-md rounded-lg p-6 space-y-6"
+    <section
+      className="min-h-screen flex items-center justify-center"
+      style={{
+        backgroundImage: `url(${bookingbg})`,
+        backgroundSize: "cover",
+        padding: "1rem",
+        position: "relative",
+      }}
     >
-      <h2 className="text-3xl font-bold text-center">Book a Service</h2>
-
-      <div>
-        <label className="block font-medium mb-1">Select Category</label>
-        <select
-          className="w-full p-2 border border-gray-300 rounded"
-          value={category}
-          onChange={(e) => {
-            setCategory(e.target.value);
-            setSelectedServices([]);
-            setLashAddOns([]);
-          }}
-        >
-          <option value="">-- Choose a Category --</option>
-          {Object.keys(services)
-            .filter((cat) => cat !== "lashAddOns")
-            .map((cat) => (
-              <option key={cat} value={cat}>
-                {cat.charAt(0).toUpperCase() + cat.slice(1)}
-              </option>
-            ))}
-        </select>
-      </div>
-
-      {category && (
-        <div className="space-y-2">
-          <p className="font-semibold">
-            Select Service
-            {singleSelectCategories.includes(category)
-              ? " (choose one)"
-              : "(s)"}
-          </p>
-          {services[category].map((s) => (
-            <label
-              key={s.name}
-              className="flex items-center space-x-2 border-b py-1"
-            >
-              <input
-                type={
-                  singleSelectCategories.includes(category)
-                    ? "radio"
-                    : "checkbox"
-                }
-                className="form-checkbox"
-                checked={selectedServices.includes(s.name)}
-                onChange={() => handleServiceToggle(s.name)}
-              />
-              <span>
-                {s.name} – ₦
-                {typeof s.price === "number"
-                  ? s.price.toLocaleString()
-                  : s.price}
-              </span>
-            </label>
-          ))}
-        </div>
-      )}
-
-      {category === "lashes" && selectedServices.length > 0 && (
-        <div className="space-y-2">
-          <h3 className="font-semibold mt-4">Optional Lash Add-ons</h3>
-          {services.lashAddOns.map((addon) => (
-            <label key={addon.name} className="block">
-              <input
-                type="checkbox"
-                className="mr-2"
-                checked={lashAddOns.includes(addon.name)}
-                onChange={() => handleAddOnToggle(addon.name)}
-              />
-              {addon.name} – ₦{addon.price.toLocaleString()}
-            </label>
-          ))}
-        </div>
-      )}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <input
-          type="text"
-          placeholder="Your Name"
-          className="w-full p-2 border border-gray-300 rounded"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          required
-        />
-
-        <input
-          type="tel"
-          placeholder="Phone Number"
-          className="w-full p-2 border border-gray-300 rounded"
-          value={formData.phone}
-          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-          required
-        />
-      </div>
-
-      <input
-        type="date"
-        className="w-full p-2 border border-gray-300 rounded"
-        value={formData.date}
-        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-        required
-      />
-
-      <div className="text-right font-bold text-lg">
-        Total: ₦{total.toLocaleString()}
-      </div>
-
-      <button
-        type="submit"
-        className="w-full bg-black text-white px-4 py-3 rounded hover:bg-gray-800 transition-all"
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: "rgba(0,0,0,0.5)", // Step 2
+          zIndex: 1,
+        }}
+      ></div>
+      <form
+        onSubmit={handleSubmit}
+        className="sm:max-w-xl w-screen mx-auto bg-white shadow-md rounded-lg p-6 space-y-6"
+        style={{ position: "relative", zIndex: 2 }}
       >
-        Book Now
-      </button>
-    </form>
+        <h2 className="text-3xl font-bold text-center">Book a Service</h2>
+
+        <div>
+          <label className="block font-medium mb-1">Select Category</label>
+          <select
+            className="w-full p-2 border border-gray-300 rounded cursor-pointer"
+            value={category}
+            required
+            onChange={(e) => {
+              setCategory(e.target.value);
+              setSelectedServices([]);
+              setLashAddOns([]);
+            }}
+          >
+            <option value="">-- Choose a Category --</option>
+            {Object.keys(services)
+              .filter((cat) => cat !== "lashAddOns")
+              .map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                </option>
+              ))}
+          </select>
+        </div>
+
+        {category && (
+          <div className="space-y-2">
+            <p className="font-semibold">
+              Select Service
+              {singleSelectCategories.includes(category)
+                ? " (choose one)"
+                : "(s)"}
+            </p>
+            {services[category].map((s) => (
+              <label
+                key={s.name}
+                className="flex items-center space-x-2 border-b py-1"
+              >
+                <input
+                  type={
+                    singleSelectCategories.includes(category)
+                      ? "radio"
+                      : "checkbox"
+                  }
+                  className="form-checkbox"
+                  checked={selectedServices.includes(s.name)}
+                  onChange={() => handleServiceToggle(s.name)}
+                />
+                <span>
+                  {s.name} – ₦
+                  {typeof s.price === "number"
+                    ? s.price.toLocaleString()
+                    : s.price}
+                </span>
+              </label>
+            ))}
+          </div>
+        )}
+
+        {category === "lashes" && selectedServices.length > 0 && (
+          <div className="space-y-2">
+            <h3 className="font-semibold mt-4">Optional Lash Add-ons</h3>
+            {services.lashAddOns.map((addon) => (
+              <label key={addon.name} className="block">
+                <input
+                  type="checkbox"
+                  className="mr-2"
+                  checked={lashAddOns.includes(addon.name)}
+                  onChange={() => handleAddOnToggle(addon.name)}
+                />
+                {addon.name} – ₦{addon.price.toLocaleString()}
+              </label>
+            ))}
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <input
+            type="text"
+            placeholder="Your Name"
+            className="w-full p-2 border border-gray-300 rounded"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            required
+          />
+
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            className="w-full p-2 border border-gray-300 rounded"
+            value={formData.phone}
+            onChange={(e) =>
+              setFormData({ ...formData, phone: e.target.value })
+            }
+            required
+          />
+        </div>
+        <label htmlFor="date" className="font-medium text-start">
+          Select Date
+        </label>
+        <input
+          type="date"
+          className="w-full p-2 border border-gray-300 rounded"
+          min={new Date().toISOString().split("T")[0]}
+          value={formData.date}
+          onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+          required
+        />
+        <label className="font-medium text-start">Time Slot</label>
+        <input
+          type="time"
+          name="time"
+          min="08:00"
+          max="18:00"
+          placeholder="e.g. 10:00 AM"
+          className="w-full p-2 border border-gray-300 rounded"
+          value={formData.time}
+          onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+          required
+        />
+
+        <div className="text-right font-bold text-lg">
+          Total: ₦{total.toLocaleString()}
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-black text-white px-4 py-3 rounded hover:bg-gray-800 transition-all"
+        >
+          Book Now
+        </button>
+      </form>
+    </section>
   );
 };
 
