@@ -5,6 +5,7 @@ const createBooking = async (req, res) => {
     const {
       name,
       phone,
+      userId,
       category,
       selectedServices,
       lashAddOns = [],
@@ -40,6 +41,7 @@ const createBooking = async (req, res) => {
     const newBooking = new Booking({
       name,
       phone,
+      userId,
       category,
       selectedServices,
       lashAddOns,

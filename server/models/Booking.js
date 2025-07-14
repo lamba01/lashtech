@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  userId: { type: String, required: true },
   phone: { type: String, required: true },
   category: { type: String, required: true },
   selectedServices: [String],

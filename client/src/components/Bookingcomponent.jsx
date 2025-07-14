@@ -1,5 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import bookingbg from "../assets/bookinbg.png";
+import { AuthContext } from "../context/AuthContext";
+// import { useNavigate } from "react-router-dom";
+import SuccessModal from "./SuccessModal";
+// import DatePicker from "react-datepicker";
+// import { isAfter, isBefore } from "date-fns";
 
 const services = {
   lashes: [
@@ -86,6 +91,9 @@ const BookingForm = () => {
   const [category, setCategory] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
   const [lashAddOns, setLashAddOns] = useState([]);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const formRef = useRef();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -93,6 +101,14 @@ const BookingForm = () => {
     time: "",
   });
   const [total, setTotal] = useState(0);
+  const { user } = useContext(AuthContext);
+  //   const navigate = useNavigate();
+  //   const [selectedDate, setSelectedDate] = useState(null);
+
+  //   const isWeekday = (date) => {
+  //     const day = date.getDay();
+  //     return day !== 0;
+  //   };
 
   const handleServiceToggle = (service) => {
     if (singleSelectCategories.includes(category)) {
@@ -137,21 +153,66 @@ const BookingForm = () => {
     setTotal(newTotal);
   }, [category, selectedServices, lashAddOns]);
 
+  //   const handleSubmit = async (e) => {
+  //     e.preventDefault();
+
+  //     if (!user) {
+  //       alert("Please log in to book a service.");
+  //       navigate("/login");
+  //       return;
+  //     }
+  //     const res = await fetch(`${import.meta.env.VITE_API_URL}/bookings`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         userId: user.uid,
+  //         category,
+  //         selectedServices,
+  //         lashAddOns,
+  //         total,
+  //         ...formData,
+  //       }),
+  //     });
+  //     const data = await res.json();
+  //     setShowSuccess(true);
+  //     console.log(data);
+  //   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/bookings`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        category,
-        selectedServices,
-        lashAddOns,
-        total,
-        ...formData,
-      }),
-    });
-    const data = await res.json();
-    alert(data.message);
+    setErrorMessage(""); // Clear old errors
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/bookings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: user.uid,
+          category,
+          selectedServices,
+          lashAddOns,
+          total,
+          ...formData,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        // Show error message from backend
+        setErrorMessage(data.message || "Something went wrong");
+        return;
+      }
+
+      setShowSuccess(true);
+      formRef.current.reset(); // <-- this clears the form
+      setFormData({ name: "", phone: "", date: "", time: "" });
+      setSelectedServices([]);
+      setLashAddOns([]);
+    } catch (err) {
+      console.error(err);
+      setErrorMessage("Network error. Please try again.");
+    }
   };
 
   return (
@@ -176,11 +237,17 @@ const BookingForm = () => {
         }}
       ></div>
       <form
+        ref={formRef}
         onSubmit={handleSubmit}
         className="sm:max-w-xl w-screen mx-auto bg-white shadow-md rounded-lg p-6 space-y-6"
         style={{ position: "relative", zIndex: 2 }}
       >
         <h2 className="text-3xl font-bold text-center">Book a Service</h2>
+        {errorMessage && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
+            {errorMessage}
+          </div>
+        )}
 
         <div>
           <label className="block font-medium mb-1">Select Category</label>
@@ -288,6 +355,24 @@ const BookingForm = () => {
           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
           required
         />
+        {/* <label htmlFor="date" className="font-medium text-start">
+          Select Date
+        </label>
+        <DatePicker
+          selected={selectedDate}
+          onChange={(date) => {
+            setSelectedDate(date);
+            setFormData({
+              ...formData,
+              date: date.toISOString().split("T")[0],
+            });
+          }}
+          filterDate={isWeekday}
+          minDate={new Date()}
+          placeholderText="Pick a date"
+          className="w-full p-2 border border-gray-300 rounded"
+        /> */}
+
         <label className="font-medium text-start">Time Slot</label>
         <input
           type="time"
@@ -305,13 +390,26 @@ const BookingForm = () => {
           Total: ₦{total.toLocaleString()}
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-black text-white px-4 py-3 rounded hover:bg-gray-800 transition-all"
-        >
-          Book Now
-        </button>
+        {user ? (
+          <button
+            type="submit"
+            className="w-full bg-black text-white px-4 py-3 rounded hover:bg-gray-800 transition-all cursor-pointer"
+          >
+            Book Now
+          </button>
+        ) : (
+          <a
+            href="/login"
+            className="block w-full text-center bg-blue-400 text-black px-4 py-3 rounded cursor-pointer hover:bg-gray-500 transition-all"
+          >
+            Login to Book
+          </a>
+        )}
       </form>
+      <SuccessModal
+        isOpen={showSuccess}
+        onClose={() => setShowSuccess(false)}
+      />
     </section>
   );
 };
