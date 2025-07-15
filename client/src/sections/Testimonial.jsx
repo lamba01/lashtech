@@ -31,7 +31,7 @@ function Testimonial() {
   const [selected, setSelected] = useState(testimonials[0]);
 
   return (
-    <section className="my-14 relative">
+    <section className=" relative">
       <div className="bg-[#F3E2D5] py-14 rounded-xl h-[300px]">
         <h2 className="text-2xl sm:text-4xl font-bold text-center mb-2 capitalize">
           testimonial

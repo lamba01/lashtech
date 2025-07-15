@@ -7,7 +7,7 @@ import {
 
 function Banner() {
   return (
-    <section className="bg-[#F3E2D5] w-full py-10 sm:py-14 px-4 sm:px-10">
+    <section className="bg-[#F3E2D5] w-full py-10 sm:py-14 my-14 px-4 sm:px-10">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-8 sm:gap-4">
         {/* 1 */}
         <div className="flex flex-col justify-center items-center gap-2 text-[#1E1E1E] text-center sm:w-1/3 max-w-sm">

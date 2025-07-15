@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Bookings from "./pages/Bookings";
+import Footer from "./components/Footer";
 import AutoLogoutWrapper from "./components/AutoLogoutWrapper";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/" element={<Home />} />
       </Routes>
+      <Footer />
     </AutoLogoutWrapper>
   );
 }

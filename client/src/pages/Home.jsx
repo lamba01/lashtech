@@ -8,13 +8,23 @@ import Testimonial from "../sections/Testimonial";
 
 function Home() {
   return (
+    // <div>
+    //   <Topnav />
+    //   <Hero />
+    //   <About />
+    //   <Services />
+    //   <BookingForm />
+    //   <Banner />
+    //   <Testimonial />
+    // </div>
     <div>
       <Topnav />
       <Hero />
       <About />
+      <Banner />
       <Services />
       <BookingForm />
-      <Banner />
+
       <Testimonial />
     </div>
   );
