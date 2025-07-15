@@ -60,4 +60,78 @@ const createBooking = async (req, res) => {
   }
 };
 
-module.exports = { createBooking };
+// GET all bookings for a user
+const getUserBookings = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const bookings = await Booking.find({ userId }).sort({ date: 1, time: 1 });
+    res.json(bookings);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch bookings." });
+  }
+};
+
+// PUT update a booking
+ const updateBooking = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { date, time } = req.body;
+
+    // Parse edited time
+    const newTime = new Date(`${date}T${time}`);
+
+    // Fetch bookings on the same date, excluding the current booking
+    const bookingsOnSameDate = await Booking.find({
+      date,
+      _id: { $ne: id }, // exclude the booking being edited
+    });
+
+    const twoHours = 1000 * 60 * 60 * 2;
+
+    // Check if any booking on same date conflicts within 2 hours
+    for (const b of bookingsOnSameDate) {
+      const existingTime = new Date(`${b.date}T${b.time}`);
+      const diff = Math.abs(existingTime - newTime);
+
+      if (diff < twoHours) {
+        return res
+          .status(400)
+          .json({ message: `There's already a booking close to that time.` });
+      }
+    }
+
+    // ✅ No conflict — now update the booking
+    const updated = await Booking.findByIdAndUpdate(id, { date, time }, { new: true });
+
+    if (!updated) return res.status(404).json({ message: "Booking not found." });
+
+    res.json(updated);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Something went wrong." });
+  }
+};
+
+
+
+// DELETE a booking
+const deleteBooking = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deleted = await Booking.findByIdAndDelete(id);
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Booking not found." });
+    }
+
+    res.json({ message: "Booking deleted." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to delete booking." });
+  }
+};
+
+
+module.exports = { createBooking, getUserBookings, updateBooking, deleteBooking };

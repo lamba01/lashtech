@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import bookingbg from "../assets/bookinbg.png";
 import { AuthContext } from "../context/AuthContext";
 // import { useNavigate } from "react-router-dom";
-import SuccessModal from "./SuccessModal";
+import SuccessModal from "../modal/SuccessModal";
 // import DatePicker from "react-datepicker";
 // import { isAfter, isBefore } from "date-fns";
 
