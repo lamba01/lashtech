@@ -242,7 +242,9 @@ const BookingForm = () => {
         className="sm:max-w-xl w-screen mx-auto bg-white shadow-md rounded-lg p-6 space-y-6"
         style={{ position: "relative", zIndex: 2 }}
       >
-        <h2 className="text-3xl font-bold text-center">Book a Service</h2>
+        <h2 className="text-3xl font-bold text-center">
+          <span className="text-[#FB7902]">Book</span> a Service
+        </h2>
         {errorMessage && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
             {errorMessage}
