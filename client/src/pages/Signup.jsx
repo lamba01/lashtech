@@ -57,31 +57,34 @@ function Signup() {
   };
 
   return (
-    <main className="w-full flex justify-center items-center text-white overflow-hidden">
-      <div className="flex w-[100vw] h-[100vh] justify-center items-center bg-[#1E1E1E] flex-col sm:flex-row">
+    <main className="w-full flex justify-center items-center text-white sm:overflow-hidden overflow-y-auto  min-h-screen">
+      <div className="flex w-[100vw] sm:h-screen min-h-screen justify-center items-center bg-[#1E1E1E] flex-col sm:flex-row">
         {/* Left Image Section */}
         <div
-          className="w-full h-[35%] sm:h-full bg-cover bg-no-repeat relative bg-center"
+          className="w-full min-h-[30vh] h-fit sm:h-full bg-cover bg-no-repeat relative bg-center"
           style={{ backgroundImage: `url(${bg})` }}
         >
-          <div className="absolute bg-black/50 w-full h-full z-0"></div>
-          <div className="relative z-10 flex flex-col top-[15%] h-full sm:w-[80%] text-start px-6 sm:pl-6">
-            <h3 className="text-white text-4xl">
+          <div className="absolute bg-black/60 w-full h-full z-0"></div>
+          <div className="relative z-10 flex flex-col sm:top-[15%] top-[20%] h-full sm:w-[80%] text-start px-6 sm:pl-6">
+            <h3 className="text-white sm:text-4xl text-2xl font-semibold">
               We show your skin, hair, and body the care and attention they
               deserve.
             </h3>
-            <p className="text-white mt-4">
+            <p className="text-[#FB7902] mt-4">
               Where Tranquility Meets Transformation.
             </p>
           </div>
         </div>
 
         {/* Right Form Section */}
-        <div className="w-full h-[65%] px-5 sm:px-20 py-10 sm:py-0">
+        <div className="w-full sm:h-[65%] min-h-[70vh] h-fit px-5 sm:px-20 py-10 sm:py-0">
           <h2 className="capitalize text-4xl">register</h2>
           <p className="text-[#F4F6FC] py-5">
-            Welcome to "to change later" beauty salon, we hope your stay with us
-            is as bright as the morning sun.
+            Welcome to{" "}
+            <span className="text-[#FB7902] font-semibold">
+              Mcken Beauty Salon
+            </span>
+            , we hope your stay with us is as bright as the morning sun.
           </p>
 
           {error && <p className="text-red-500 mb-4">{error}</p>}

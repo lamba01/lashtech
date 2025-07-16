@@ -15,7 +15,7 @@ function Services() {
       </p>
 
       <div className="flex flex-col-reverse md:flex-row items-center gap-10 max-w-5xl mx-auto">
-        <div className="md:w-1/2">
+        <div className="md:w-1/2" data-aos="flip-left">
           <h3 className="text-2xl sm:text-3xl font-semibold mb-3 text-[#FB7902]">
             Meet Our Founder – Anita James
           </h3>
@@ -37,7 +37,7 @@ function Services() {
           </p>
         </div>
 
-        <div className="md:w-1/2 w-full">
+        <div className="md:w-1/2 w-full" data-aos="flip-right">
           <img
             src={ownerImg}
             alt="Anita James - Founder"

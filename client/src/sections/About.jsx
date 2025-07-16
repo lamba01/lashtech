@@ -7,14 +7,19 @@ import facials from "../assets/facials.jpg";
 function About() {
   return (
     <section>
-      <h2 className="sm:text-4xl text-2xl w-11/12 md:w-1/2 text-center mx-auto font-bold mb-8 mt-14">
-        Enhance your inner radiance at our{" "}
-        <span className="text-[#FB7902]">beauty sanctuary</span> and let your
-        true beauty shine.
-      </h2>
+      <div className="flex flex-col justify-between items-center py-2 mb-8">
+        <h2 className="sm:text-4xl text-2xl w-11/12 sm:w-1/2 text-center mx-auto font-bold  mt-14">
+          Enhance your inner radiance at our{" "}
+          <span className="text-[#FB7902]">beauty sanctuary</span> and let your
+          true beauty shine.
+        </h2>
+        <button className="bg-black text-white py-2 px-10 mt-5 sm:mt-5 h-fit capitalize cursor-pointer hover:bg-[#BFA2DB] transition-all duration-300">
+          view my bookings
+        </button>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
         {/* Lashes */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center" data-aos="fade-up">
           <img
             src={lashes}
             alt="Lashes"
@@ -23,7 +28,7 @@ function About() {
           <span className="mt-2 text-lg font-semibold">Lashes</span>
         </div>
         {/* Manicure */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center" data-aos="fade-up">
           <img
             src={manicure}
             alt="Manicure"
@@ -32,7 +37,7 @@ function About() {
           <span className="mt-2 text-lg font-semibold">Manicure</span>
         </div>
         {/* Pedicure */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center" data-aos="fade-up">
           <img
             src={pedicure}
             alt="Pedicure"
@@ -41,7 +46,7 @@ function About() {
           <span className="mt-2 text-lg font-semibold">Pedicure</span>
         </div>
         {/* Facials */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center" data-aos="fade-up">
           <img
             src={facials}
             alt="Facials"

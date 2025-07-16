@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Signup from "./pages/Signup";
@@ -8,12 +9,20 @@ import Bookings from "./pages/Bookings";
 import Footer from "./components/Footer";
 import Topnav from "./components/Topnav";
 import AutoLogoutWrapper from "./components/AutoLogoutWrapper";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function App() {
   const location = useLocation();
   const hideNavAndFooter = ["/login", "/register", "/forgot-password"].includes(
     location.pathname
   );
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: false,
+    });
+  }, []);
   return (
     <AutoLogoutWrapper>
       {!hideNavAndFooter && <Topnav />}

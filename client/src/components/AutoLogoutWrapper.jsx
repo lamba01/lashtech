@@ -14,7 +14,7 @@ const AutoLogoutWrapper = ({ children }) => {
 
     const resetTimer = () => {
       clearTimeout(timeout);
-      timeout = setTimeout(logout, 30 * 60 * 1000); // 30 mins
+      timeout = setTimeout(logout, 120 * 60 * 1000); // 120 mins
     };
 
     window.addEventListener("mousemove", resetTimer);
