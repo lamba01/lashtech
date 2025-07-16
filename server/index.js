@@ -13,6 +13,9 @@ app.use(express.json());
 connectDB();
 
 app.use("/api/bookings", bookingRoutes);
+app.get("/", (req, res) => {
+  res.send("Api is running!");
+});
 
 const PORT = process.env.PORT || 5000;
 
