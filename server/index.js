@@ -6,8 +6,13 @@ const connectDB = require("./config/db");
 const bookingRoutes = require("./routes/bookingRoutes");
 
 const app = express();
+// Middleware
+const corsOptions = {
+  origin: "https://lashtech-sxaq.vercel.app", 
+  credentials: true,
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 // Connect to MongoDB
 connectDB();
