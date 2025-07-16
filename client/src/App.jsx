@@ -22,7 +22,6 @@ function App() {
         <Route path="/bookings" element={<Bookings />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        {!hideNavAndFooter && <Footer />}
         <Route path="/" element={<Home />} />
       </Routes>
       {!hideNavAndFooter && <Footer />}
