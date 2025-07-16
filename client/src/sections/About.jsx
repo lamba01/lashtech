@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import lashes from "../assets/lashes.jpg";
 import manicure from "../assets/manicure.jpg";
 import pedicure from "../assets/pedicure.jpg";
@@ -13,8 +14,8 @@ function About() {
           <span className="text-[#FB7902]">beauty sanctuary</span> and let your
           true beauty shine.
         </h2>
-        <button className="bg-black text-white py-2 px-10 mt-5 sm:mt-5 h-fit capitalize cursor-pointer hover:bg-[#BFA2DB] transition-all duration-300">
-          view my bookings
+        <button className="bg-black text-white py-2 px-10 mt-5 sm:mt-5 h-fit capitalize cursor-pointer hover:bg-gray-800 transition-all duration-300">
+          <Link to="/bookings">view my bookings</Link>
         </button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
