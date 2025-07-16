@@ -13,7 +13,14 @@ function Hero() {
           and <span className="font-bold text-black">body</span> the care and
           attention they deserve.
         </h1>
-        <button className="bg-black text-white py-2 px-10 mt-5 sm:mt-5 capitalize cursor-pointer hover:bg-[#BFA2DB] transition-all duration-300">
+        <button
+          onClick={() =>
+            document
+              .getElementById("booking")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
+          className="bg-black text-white py-2 px-10 mt-5 sm:mt-5 capitalize cursor-pointer hover:bg-[#BFA2DB] transition-all duration-300"
+        >
           book now
         </button>
       </div>

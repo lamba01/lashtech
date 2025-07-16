@@ -224,6 +224,7 @@ const BookingForm = () => {
         padding: "1rem",
         position: "relative",
       }}
+      id="booking"
     >
       <div
         style={{

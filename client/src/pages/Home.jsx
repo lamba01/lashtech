@@ -1,4 +1,4 @@
-import Topnav from "../components/Topnav";
+// import Topnav from "../components/Topnav";
 import Hero from "../sections/Hero";
 import About from "../sections/About";
 import Services from "../sections/Services";
@@ -8,23 +8,13 @@ import Testimonial from "../sections/Testimonial";
 
 function Home() {
   return (
-    // <div>
-    //   <Topnav />
-    //   <Hero />
-    //   <About />
-    //   <Services />
-    //   <BookingForm />
-    //   <Banner />
-    //   <Testimonial />
-    // </div>
     <div>
-      <Topnav />
+      {/* <Topnav /> */}
       <Hero />
       <About />
       <Banner />
       <Services />
       <BookingForm />
-
       <Testimonial />
     </div>
   );
