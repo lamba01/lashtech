@@ -31,8 +31,8 @@ function Testimonial() {
   const [selected, setSelected] = useState(testimonials[0]);
 
   return (
-    <section className=" relative" data-aos="fade-up">
-      <div className="bg-[#F3E2D5] py-14 rounded-xl h-[300px]">
+    <section className=" relative mb-[200px]" data-aos="fade-up">
+      <div className="bg-[#F3E2D5] py-14 rounded-b-xl h-[300px]">
         <h2 className="text-2xl sm:text-4xl font-bold text-center mb-2 capitalize">
           testimonial
         </h2>
@@ -40,7 +40,7 @@ function Testimonial() {
           what our clients say about us
         </p>
 
-        <div className="relative bg-white rounded-xl shadow-md flex flex-col md:flex-row items-center justify-center sm:max-w-3xl max-w-11/12 mx-auto px-6 sm:px-10 py-10 overflow-visible">
+        <div className="relative bg-white rounded-xl shadow-md flex flex-col md:flex-row items-center justify-center sm:max-w-10/12 max-w-11/12 mx-auto px-6 sm:px-7 py-10 overflow-visible">
           {/* Outside quote icons */}
           <FaQuoteLeft className="absolute -top-6 sm:-left-10 -left-4 text-6xl text-[#FB7902] z-0" />
           <FaQuoteRight className="absolute -bottom-6 sm:-right-10 -right-4 text-6xl text-[#FB7902] z-0" />

@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import bg from "../assets/registerimg.png";
 import { FcGoogle } from "react-icons/fc";
+const ADMIN_UID = import.meta.env.VITE_ADMIN_UID;
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,8 +21,18 @@ function Login() {
     setError("");
 
     try {
-      await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      navigate("/");
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+      const uid = userCredential.user.uid;
+      if (uid === ADMIN_UID) {
+        navigate("/admin");
+      } else {
+        navigate("/"); // or user dashboard
+      }
+      // navigate("/");
     } catch (err) {
       console.error(err);
       setError("Invalid email or password");

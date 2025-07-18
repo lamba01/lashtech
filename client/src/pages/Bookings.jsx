@@ -17,6 +17,12 @@ const BookingsPage = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (user) {
+      window.scrollTo({ top: 0, behavior: "smooth" }); // ⬅ Scrolls to top
+    }
+  }, [user]);
+
+  useEffect(() => {
     const fetchBookings = async () => {
       try {
         const res = await fetch(
@@ -24,7 +30,7 @@ const BookingsPage = () => {
         );
         const data = await res.json();
         setBookings(data);
-        console.log("Bookings fetched:", data);
+        // console.log("Bookings fetched:", data);
       } catch (err) {
         setError("Failed to load bookings.");
         console.error(err);
@@ -132,7 +138,7 @@ const BookingsPage = () => {
       ) : bookings.length === 0 ? (
         <p className="text-center text-gray-500">No bookings yet.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {bookings.map((b) => (
             <div
               key={b._id}
@@ -151,16 +157,17 @@ const BookingsPage = () => {
               <p className="text-black font-bold">
                 ₦{b.total.toLocaleString()}
               </p>
-              <div className="flex justify-between">
+              <p className="text-black font-bold">Status: {b.status}</p>
+              <div className="flex sm:flex-row flex-col gap-5 justify-between">
                 <button
                   onClick={() => handleDelete(b)}
-                  className="text-sm text-white bg-red-500 hover:bg-red-600 px-6 py-2 rounded cursor-pointer"
+                  className="text-sm text-white bg-red-500 hover:bg-red-600 px-6 py-2 rounded order-2 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={() => openEditModal(b)}
-                  className="text-sm text-white bg-blue-500 hover:bg-blue-600 px-6 py-2 rounded cursor-pointer"
+                  className="text-sm text-white bg-blue-500 hover:bg-blue-600 px-6 py-2 rounded order-1 cursor-pointer"
                 >
                   Reschedule Booking
                 </button>

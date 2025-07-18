@@ -1,31 +1,35 @@
 import { useEffect, useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import { useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Modal from "react-modal";
+const ADMIN_UID = import.meta.env.VITE_ADMIN_UID;
 
 const AdminDashboard = () => {
   const [bookings, setBookings] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user || user.uid !== ADMIN_UID) {
+        navigate("/"); // redirect to homepage or login
+      }
+    });
+
+    return () => unsubscribe();
+  });
   const fetchBookings = async () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/bookings`);
       const data = await res.json();
-
-      const now = new Date();
-
-      // Automatically mark past confirmed bookings as completed
-      const updatedBookings = await Promise.all(
-        data.map(async (b) => {
-          const bookingDate = new Date(`${b.date}T${b.time}`);
-          if (b.status === "confirmed" && bookingDate < now) {
-            await updateStatus(b._id, "completed");
-            return { ...b, status: "completed" };
-          }
-          return b;
-        })
-      );
-
-      setBookings(updatedBookings);
-    } catch (err) {
-      console.error("Error fetching bookings:", err);
+      setBookings(data);
+    } catch (error) {
+      console.error("Error fetching bookings:", error);
     }
   };
 
@@ -36,7 +40,7 @@ const AdminDashboard = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus }),
       });
-      fetchBookings(); // Refresh after update
+      fetchBookings();
     } catch (err) {
       console.error("Error updating status:", err);
     }
@@ -44,18 +48,29 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     fetchBookings();
-  });
+  }, []);
 
-  const filtered = bookings.filter(
-    (b) =>
-      b.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      b.date.includes(searchTerm) ||
-      b.status.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filtered = bookings
+    .filter(
+      (b) =>
+        b.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        b.date.includes(searchTerm) ||
+        b.status.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => new Date(a.date) - new Date(b.date)); // sort by date
 
   const totalRevenue = bookings
     .filter((b) => b.status === "confirmed" || b.status === "completed")
     .reduce((acc, curr) => acc + curr.total, 0);
+
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
+    setModalOpen(true);
+  };
+
+  const selectedDateString = selectedDate?.toISOString().split("T")[0];
+
+  const bookingsOnDate = bookings.filter((b) => b.date === selectedDateString);
 
   return (
     <div className="p-6 mt-14">
@@ -69,14 +84,19 @@ const AdminDashboard = () => {
           <p className="text-2xl">₦{totalRevenue}</p>
         </div>
         <div className="bg-white shadow rounded-xl p-4">
-          <h2 className="text-xl font-semibold">Calendar View</h2>
-          <div className="h-40 overflow-y-auto text-sm text-gray-600 mt-2">
-            {bookings.map((b) => (
-              <div key={b._id} className="mb-1">
-                {new Date(`${b.date}T${b.time}`).toLocaleString()}
-              </div>
-            ))}
-          </div>
+          <h2 className="text-xl font-semibold">Calendar</h2>
+          {/* <Calendar onClickDay={handleDateClick} /> */}
+          <Calendar
+            onClickDay={handleDateClick}
+            value={selectedDate}
+            tileClassName={({ date, view }) => {
+              if (view === "month") {
+                const dateStr = date.toISOString().split("T")[0];
+                const hasBooking = bookings.some((b) => b.date === dateStr);
+                return hasBooking ? "highlighted-date" : null;
+              }
+            }}
+          />
         </div>
       </div>
 
@@ -133,6 +153,39 @@ const AdminDashboard = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Modal for date bookings */}
+      <Modal
+        isOpen={modalOpen}
+        onRequestClose={() => setModalOpen(false)}
+        className="bg-white p-6 max-w-lg mx-auto mt-20 rounded shadow"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-start"
+      >
+        <h2 className="text-lg font-bold mb-4">
+          Bookings on {selectedDateString}
+        </h2>
+        {bookingsOnDate.length === 0 ? (
+          <p className="text-gray-500">No bookings for this date.</p>
+        ) : (
+          <ul className="space-y-2">
+            {bookingsOnDate.map((b) => (
+              <li key={b._id} className="border p-3 rounded">
+                <div className="font-semibold">{b.name}</div>
+                <div>{b.time}</div>
+                <div className={`text-sm ${getStatusColor(b.status)}`}>
+                  {b.status}
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+        <button
+          onClick={() => setModalOpen(false)}
+          className="mt-4 text-blue-600 text-sm underline"
+        >
+          Close
+        </button>
+      </Modal>
     </div>
   );
 };

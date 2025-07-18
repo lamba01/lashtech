@@ -5,6 +5,9 @@ import App from './App.jsx'
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import "react-datepicker/dist/react-datepicker.css";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
