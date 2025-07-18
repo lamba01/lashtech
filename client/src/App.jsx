@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Bookings from "./pages/Bookings";
 import Footer from "./components/Footer";
 import Topnav from "./components/Topnav";
+import Admin from "./pages/AdminDashboard";
 import AutoLogoutWrapper from "./components/AutoLogoutWrapper";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -32,6 +33,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
       {!hideNavAndFooter && <Footer />}
     </AutoLogoutWrapper>

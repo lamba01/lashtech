@@ -8,7 +8,6 @@ const AutoLogoutWrapper = ({ children }) => {
 
     const logout = () => {
       auth.signOut();
-      alert("You’ve been logged out due to inactivity.");
       window.location.href = "/login"; // Redirect to login
     };
 

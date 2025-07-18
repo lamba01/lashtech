@@ -7,10 +7,19 @@ const bookingRoutes = require("./routes/bookingRoutes");
 
 const app = express();
 // Middleware
+// const corsOptions = {
+//   origin: "https://lashtech-sxaq.vercel.app", 
+//   credentials: true,
+// };
+
 const corsOptions = {
-  origin: "https://lashtech-sxaq.vercel.app", 
+  origin: [
+    "https://lashtech-sxaq.vercel.app",
+    "http://localhost:5173", 
+  ],
   credentials: true,
 };
+
 
 app.use(cors(corsOptions));
 app.use(express.json());

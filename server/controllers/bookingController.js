@@ -12,6 +12,7 @@ const createBooking = async (req, res) => {
       date,
       time,
       total,
+      status = "pending", // Default status
     } = req.body;
 
     const bookingStart = new Date(`${date}T${time}`);
@@ -48,6 +49,7 @@ const createBooking = async (req, res) => {
       date,
       time,
       total,
+      status,
     });
     await newBooking.save();
 
@@ -58,6 +60,12 @@ const createBooking = async (req, res) => {
       .status(500)
       .json({ message: "Something went wrong. Please try again later." });
   }
+};
+
+// GET all bookings for admin
+const getAllBookings = async (req, res) => {
+  const bookings = await Booking.find().sort({ createdAt: -1 });
+  res.json(bookings);
 };
 
 // GET all bookings for a user
@@ -73,10 +81,10 @@ const getUserBookings = async (req, res) => {
 };
 
 // PUT update a booking
- const updateBooking = async (req, res) => {
+const updateBooking = async (req, res) => {
   try {
     const { id } = req.params;
-    const { date, time } = req.body;
+    const { date, time, status } = req.body;
 
     // Parse edited time
     const newTime = new Date(`${date}T${time}`);
@@ -102,9 +110,14 @@ const getUserBookings = async (req, res) => {
     }
 
     // ✅ No conflict — now update the booking
-    const updated = await Booking.findByIdAndUpdate(id, { date, time }, { new: true });
+    const updated = await Booking.findByIdAndUpdate(
+      id,
+      { date, time },
+      { new: true }
+    );
 
-    if (!updated) return res.status(404).json({ message: "Booking not found." });
+    if (!updated)
+      return res.status(404).json({ message: "Booking not found." });
 
     res.json(updated);
   } catch (err) {
@@ -112,8 +125,6 @@ const getUserBookings = async (req, res) => {
     res.status(500).json({ message: "Something went wrong." });
   }
 };
-
-
 
 // DELETE a booking
 const deleteBooking = async (req, res) => {
@@ -133,5 +144,10 @@ const deleteBooking = async (req, res) => {
   }
 };
 
-
-module.exports = { createBooking, getUserBookings, updateBooking, deleteBooking };
+module.exports = {
+  createBooking,
+  getUserBookings,
+  updateBooking,
+  deleteBooking,
+  getAllBookings,
+};
