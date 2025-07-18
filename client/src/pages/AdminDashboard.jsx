@@ -8,15 +8,43 @@ const AdminDashboard = () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/bookings`);
       const data = await res.json();
-      setBookings(data);
+
+      const now = new Date();
+
+      // Automatically mark past confirmed bookings as completed
+      const updatedBookings = await Promise.all(
+        data.map(async (b) => {
+          const bookingDate = new Date(`${b.date}T${b.time}`);
+          if (b.status === "confirmed" && bookingDate < now) {
+            await updateStatus(b._id, "completed");
+            return { ...b, status: "completed" };
+          }
+          return b;
+        })
+      );
+
+      setBookings(updatedBookings);
     } catch (err) {
       console.error("Error fetching bookings:", err);
     }
   };
 
+  const updateStatus = async (id, newStatus) => {
+    try {
+      await fetch(`${import.meta.env.VITE_API_URL}/bookings/${id}/status`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      fetchBookings(); // Refresh after update
+    } catch (err) {
+      console.error("Error updating status:", err);
+    }
+  };
+
   useEffect(() => {
     fetchBookings();
-  }, []);
+  });
 
   const filtered = bookings.filter(
     (b) =>
@@ -31,8 +59,6 @@ const AdminDashboard = () => {
 
   return (
     <div className="p-6 mt-14">
-      <h1 className="text-3xl font-bold mb-4">Admin Dashboard</h1>
-
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         <div className="bg-white shadow rounded-xl p-4">
           <h2 className="text-xl font-semibold">Total Bookings</h2>
@@ -47,7 +73,7 @@ const AdminDashboard = () => {
           <div className="h-40 overflow-y-auto text-sm text-gray-600 mt-2">
             {bookings.map((b) => (
               <div key={b._id} className="mb-1">
-                {b.date} — {b.time}
+                {new Date(`${b.date}T${b.time}`).toLocaleString()}
               </div>
             ))}
           </div>
@@ -72,6 +98,7 @@ const AdminDashboard = () => {
               <th className="p-2 border">Time</th>
               <th className="p-2 border">Status</th>
               <th className="p-2 border">Total</th>
+              <th className="p-2 border">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -89,6 +116,18 @@ const AdminDashboard = () => {
                   {b.status}
                 </td>
                 <td className="p-2 border">₦{b.total}</td>
+                <td className="p-2 border">
+                  <select
+                    value={b.status}
+                    onChange={(e) => updateStatus(b._id, e.target.value)}
+                    className="p-1 border rounded"
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
+                </td>
               </tr>
             ))}
           </tbody>
