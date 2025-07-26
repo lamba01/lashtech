@@ -13,7 +13,7 @@ const createBooking = async (req, res) => {
       date,
       time,
       total,
-      status = "pending", // Default status
+      status = "confirmed", // Default status
     } = req.body;
 
     const bookingStart = new Date(`${date}T${time}`);
@@ -107,7 +107,6 @@ ${formattedServices}${formattedAddOns}
 
 Visit the admin dashboard to view more.`
     );
-
 
     res.status(201).json({ message: "Booking successful!" });
   } catch (err) {
@@ -206,7 +205,7 @@ const updateBookingStatus = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
-    if (!["pending", "confirmed", "completed", "cancelled"].includes(status)) {
+    if (!["confirmed", "completed", "cancelled"].includes(status)) {
       return res.status(400).json({ message: "Invalid status value." });
     }
 
