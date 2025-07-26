@@ -113,7 +113,7 @@ const AdminDashboard = () => {
           <thead>
             <tr className="bg-gray-100">
               <th className="p-2 border">Name</th>
-              <th className="p-2 border">Phone</th>
+              <th className="p-2 border">Email</th>
               <th className="p-2 border">Date</th>
               <th className="p-2 border">Time</th>
               <th className="p-2 border">Status</th>
@@ -125,7 +125,7 @@ const AdminDashboard = () => {
             {filtered.map((b) => (
               <tr key={b._id} className="border-t hover:bg-gray-50">
                 <td className="p-2 border">{b.name}</td>
-                <td className="p-2 border">{b.phone}</td>
+                <td className="p-2 border">{b.email}</td>
                 <td className="p-2 border">
                   {" "}
                   {new Date(b.date).toLocaleDateString("en-US", {
@@ -149,7 +149,6 @@ const AdminDashboard = () => {
                     onChange={(e) => updateStatus(b._id, e.target.value)}
                     className="p-1 border rounded"
                   >
-                    <option value="pending">Pending</option>
                     <option value="confirmed">Confirmed</option>
                     <option value="completed">Completed</option>
                     <option value="cancelled">Cancelled</option>

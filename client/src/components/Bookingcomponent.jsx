@@ -246,12 +246,6 @@ const BookingForm = () => {
         <h2 className="text-3xl font-bold text-center">
           <span className="text-[#FB7902]">Book</span> a Service
         </h2>
-        {errorMessage && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
-            {errorMessage}
-          </div>
-        )}
-
         <div>
           <label className="block font-medium mb-1">Select Category</label>
           <select
@@ -392,6 +386,11 @@ const BookingForm = () => {
         <div className="text-right font-bold text-lg">
           Total: ₦{total.toLocaleString()}
         </div>
+        {errorMessage && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
+            {errorMessage}
+          </div>
+        )}
 
         {user ? (
           <button
@@ -408,6 +407,9 @@ const BookingForm = () => {
             Login to Book
           </a>
         )}
+        <p className="text-center text-sm m-0 p-0 italic text-gray-500">
+          lateness fee is an additional 5,000
+        </p>
       </form>
       <SuccessModal
         isOpen={showSuccess}

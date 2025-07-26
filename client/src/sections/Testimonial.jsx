@@ -1,29 +1,30 @@
 import React, { useState } from "react";
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import { BsArrowRight } from "react-icons/bs";
+import profile from "../assets/profile.jpg";
 
 // Dummy testimonials
 const testimonials = [
   {
     id: 1,
-    name: "Jane Doe",
+    name: "Adeola Adebuwa",
     message:
       "Absolutely wonderful experience! The staff are so kind and the environment is serene. I’ll definitely return.",
-    image: "https://randomuser.me/api/portraits/women/1.jpg",
+    image: profile,
   },
   {
     id: 2,
     name: "Amaka Obi",
     message:
       "This salon exceeded my expectations! My skin feels amazing. Highly recommended for all beauty needs.",
-    image: "https://randomuser.me/api/portraits/women/2.jpg",
+    image: profile,
   },
   {
     id: 3,
     name: "Zainab Bello",
     message:
       "Professionalism at its peak. From the reception to the treatment, everything was perfect.",
-    image: "https://randomuser.me/api/portraits/women/3.jpg",
+    image: profile,
   },
 ];
 
@@ -91,3 +92,4 @@ function Testimonial() {
 }
 
 export default Testimonial;
+
