@@ -53,8 +53,8 @@ const Footer = () => {
         <div>
           <h3 className="text-xl font-semibold mb-2">Working Hours</h3>
           <ul className="text-sm text-gray-300 space-y-1">
-            <li>Mon - Fri: 8:00am - 6:00pm</li>
-            <li>Saturday: 9:00am - 4:00pm</li>
+            <li>Mon - Fri: 9:00am - 6:00pm</li>
+            <li>Saturday: 10:00am - 7:00pm</li>
             <li>Sunday: Closed</li>
           </ul>
         </div>
@@ -77,6 +77,11 @@ const Footer = () => {
       <p className="text-center text-gray-500 text-sm mt-10 capitalize">
         &copy; {new Date().getFullYear()} Mcken beauty place. All rights
         reserved.
+      </p>
+      <p className="text-center text-sm mt-2">
+        <a href="/login" className="text-[#FB7902] hover:underline font-medium">
+          Login / Sign Up
+        </a>
       </p>
     </footer>
   );

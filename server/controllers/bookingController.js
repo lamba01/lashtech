@@ -53,11 +53,61 @@ const createBooking = async (req, res) => {
       status,
     });
     await newBooking.save();
-    await sendBookingEmail(
-      email, // you need to collect this in req.body
-      "Booking Confirmation",
-      `Hi ${name}, your booking for ${date} at ${time} has been received. We’ll get back to you shortly.`
+    const formattedDate = new Date(date).toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    const formattedServices = selectedServices.map((s) => `• ${s}`).join("\n");
+    const formattedTime = new Date(`${date}T${time}`).toLocaleTimeString(
+      "en-US",
+      {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+        timeZone: "Africa/Lagos",
+      }
     );
+    const formattedAddOns = lashAddOns.length
+      ? `\n✨ Add-ons:\n${lashAddOns.map((a) => `• ${a}`).join("\n")}`
+      : "";
+
+    await sendBookingEmail(
+      email,
+      "Booking Confirmed – See You Soon!",
+      `Hi ${name},
+
+Your booking has been confirmed! Here are the details:
+
+📅 Date: ${formattedDate}  
+⏰ Time: ${formattedTime} (WAT) 
+📂 Category: ${category}  
+🛍️ Services: ${formattedServices}${formattedAddOns}
+
+If you’d like to reschedule or view your appointment, you can do so anytime from your bookings page.
+
+We look forward to seeing you!
+
+– The Mcken Beauty Salon Team`
+    );
+    await sendBookingEmail(
+      "moyinooluwafemi2004@gmail.com",
+      "New Booking Received",
+      `📢 A new booking was just made!
+
+👤 Name: ${name}  
+📧 Email: ${email}  
+📂 Category: ${category}  
+🛍️ Services:
+${formattedServices}${formattedAddOns}
+
+📅 Date: ${formattedDate}  
+⏰ Time: ${formattedTime} (WAT)
+
+Visit the admin dashboard to view more.`
+    );
+
 
     res.status(201).json({ message: "Booking successful!" });
   } catch (err) {

@@ -380,7 +380,7 @@ const BookingForm = () => {
         <input
           type="time"
           name="time"
-          min="08:00"
+          min="09:00"
           max="18:00"
           placeholder="e.g. 10:00 AM"
           className="w-full p-2 border border-gray-300 rounded"

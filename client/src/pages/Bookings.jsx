@@ -152,8 +152,15 @@ const BookingsPage = () => {
                   `Add-ons: ${b.lashAddOns.join(", ")}`}
               </p>
               <p className="text-gray-700 font-medium">
-                {b.date} at {b.time}
+                {new Date(b.date).toLocaleDateString("en-US", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}{" "}
+                at {b.time}
               </p>
+
               <p className="text-black font-bold">
                 ₦{b.total.toLocaleString()}
               </p>

@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import lashes from "../assets/lashes.jpg";
-import manicure from "../assets/manicure.jpg";
+// import lashes from "../assets/lashes.jpg";
+import lashes from "../assets/lash.jpg";
+import brows from "../assets/brow.jpg";
 import pedicure from "../assets/pedicure.jpg";
 import facials from "../assets/facials.jpg";
 
@@ -26,16 +27,16 @@ function About() {
             alt="Lashes"
             className="sm:w-full w-11/12 h-48 object-cover rounded-lg shadow-md"
           />
-          <span className="mt-2 text-lg font-semibold">Lashes</span>
+          <span className="mt-2 text-lg font-semibold">Lashes Extension</span>
         </div>
-        {/* Manicure */}
+        {/* brows */}
         <div className="flex flex-col items-center" data-aos="fade-up">
           <img
-            src={manicure}
-            alt="Manicure"
+            src={brows}
+            alt="Brow Treatment"
             className="sm:w-full w-11/12 h-48 object-cover rounded-lg shadow-md"
           />
-          <span className="mt-2 text-lg font-semibold">Manicure</span>
+          <span className="mt-2 text-lg font-semibold">Brows Treatment</span>
         </div>
         {/* Pedicure */}
         <div className="flex flex-col items-center" data-aos="fade-up">
@@ -53,7 +54,7 @@ function About() {
             alt="Facials"
             className="sm:w-full w-11/12 h-48 object-cover rounded-lg shadow-md"
           />
-          <span className="mt-2 text-lg font-semibold">Facials</span>
+          <span className="mt-2 text-lg font-semibold">Facial Treatment</span>
         </div>
       </div>
     </section>

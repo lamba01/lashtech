@@ -126,7 +126,14 @@ const AdminDashboard = () => {
               <tr key={b._id} className="border-t hover:bg-gray-50">
                 <td className="p-2 border">{b.name}</td>
                 <td className="p-2 border">{b.phone}</td>
-                <td className="p-2 border">{b.date}</td>
+                <td className="p-2 border">
+                  {" "}
+                  {new Date(b.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </td>
                 <td className="p-2 border">{b.time}</td>
                 <td
                   className={`p-2 border font-semibold ${getStatusColor(
