@@ -60,15 +60,6 @@ const createBooking = async (req, res) => {
       day: "numeric",
     });
     const formattedServices = selectedServices.map((s) => `• ${s}`).join("\n");
-    const formattedTime = new Date(`${date}T${time}`).toLocaleTimeString(
-      "en-US",
-      {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-        timeZone: "Africa/Lagos",
-      }
-    );
     const formattedAddOns = lashAddOns.length
       ? `\n✨ Add-ons:\n${lashAddOns.map((a) => `• ${a}`).join("\n")}`
       : "";
@@ -81,7 +72,7 @@ const createBooking = async (req, res) => {
 Your booking has been confirmed! Here are the details:
 
 📅 Date: ${formattedDate}  
-⏰ Time: ${formattedTime} (WAT) 
+⏰ Time: ${time} (WAT) 
 📂 Category: ${category}  
 🛍️ Services: ${formattedServices}${formattedAddOns}
 
@@ -103,7 +94,7 @@ We look forward to seeing you!
 ${formattedServices}${formattedAddOns}
 
 📅 Date: ${formattedDate}  
-⏰ Time: ${formattedTime} (WAT)
+⏰ Time: ${time} (WAT)
 
 Visit the admin dashboard to view more.`
     );
