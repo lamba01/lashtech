@@ -1,10 +1,11 @@
 const Booking = require("../models/Booking");
+const sendBookingEmail = require("../mailer");
 
 const createBooking = async (req, res) => {
   try {
     const {
       name,
-      phone,
+      email,
       userId,
       category,
       selectedServices,
@@ -41,7 +42,7 @@ const createBooking = async (req, res) => {
 
     const newBooking = new Booking({
       name,
-      phone,
+      email,
       userId,
       category,
       selectedServices,
@@ -52,6 +53,11 @@ const createBooking = async (req, res) => {
       status,
     });
     await newBooking.save();
+    await sendBookingEmail(
+      email, // you need to collect this in req.body
+      "Booking Confirmation",
+      `Hi ${name}, your booking for ${date} at ${time} has been received. We’ll get back to you shortly.`
+    );
 
     res.status(201).json({ message: "Booking successful!" });
   } catch (err) {

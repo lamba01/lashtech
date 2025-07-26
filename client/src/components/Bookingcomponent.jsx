@@ -96,7 +96,7 @@ const BookingForm = () => {
   const formRef = useRef();
   const [formData, setFormData] = useState({
     name: "",
-    phone: "",
+    email: "",
     date: "",
     time: "",
   });
@@ -337,12 +337,12 @@ const BookingForm = () => {
           />
 
           <input
-            type="tel"
-            placeholder="Phone Number"
+            type="email"
+            placeholder="Email Address"
             className="w-full p-2 border border-gray-300 rounded"
-            value={formData.phone}
+            value={formData.email}
             onChange={(e) =>
-              setFormData({ ...formData, phone: e.target.value })
+              setFormData({ ...formData, email: e.target.value })
             }
             required
           />
