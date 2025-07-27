@@ -1,33 +1,9 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const ReminderTemplate = () => {
-  const textareaRef = useRef();
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
-    if (textareaRef.current) {
-      navigator.clipboard
-        .writeText(textareaRef.current.value)
-        .then(() => {
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000); // reset after 2 seconds
-        })
-        .catch(() => {
-          // fallback if needed
-          alert("Failed to copy. Please try manually.");
-        });
-    }
-  };
-
-  return (
-    <div className="mt-8 max-w-xl">
-      <h2 className="text-lg font-medium mb-2">Reminder Message</h2>
-      <textarea
-        ref={textareaRef}
-        readOnly
-        rows={8}
-        className="w-full p-3 border border-gray-300 rounded-md text-sm text-gray-700"
-        value={`Subject: Appointment Reminder – Mcken Beauty Place
+  const message = `Subject: Appointment Reminder – Mcken Beauty Place
 
 Hi there,
 
@@ -35,10 +11,30 @@ This is a friendly reminder that you have an upcoming appointment with us at Mck
 
 If you need to make any changes or have questions about your booking, feel free to get in touch. We’re looking forward to having you!
 
-—  
-Mcken Beauty Place  
-WhatsApp: 08183698673  
-Instagram: @lashes.brows.beautyy`}
+—
+Mcken Beauty Place
+WhatsApp: 08183698673
+Instagram: @lashes.brows.beautyy`;
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(message);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      alert("Failed to copy. Please copy manually.");
+      console.error("Copy failed:", err);
+    }
+  };
+
+  return (
+    <div className="mt-8 max-w-xl">
+      <h2 className="text-lg font-medium mb-2">Reminder Message</h2>
+      <textarea
+        readOnly
+        rows={8}
+        className="w-full p-3 border border-gray-300 rounded-md text-sm text-gray-700"
+        value={message}
       />
       <button
         onClick={handleCopy}
