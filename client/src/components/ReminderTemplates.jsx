@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const ReminderTemplate = () => {
   const [copied, setCopied] = useState(false);
+  const hiddenTextarea = useRef();
 
   const message = `Subject: Appointment Reminder – Mcken Beauty Place
 
@@ -16,15 +17,16 @@ Mcken Beauty Place
 WhatsApp: 08183698673
 Instagram: @lashes.brows.beautyy`;
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(message);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      alert("Failed to copy. Please copy manually.");
-      console.error("Copy failed:", err);
-    }
+  const handleCopy = () => {
+    const textarea = hiddenTextarea.current;
+    textarea.value = message;
+    textarea.style.display = "block";
+    textarea.select();
+    document.execCommand("copy");
+    textarea.style.display = "none";
+
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -36,6 +38,13 @@ Instagram: @lashes.brows.beautyy`;
         className="w-full p-3 border border-gray-300 rounded-md text-sm text-gray-700"
         value={message}
       />
+
+      <textarea
+        ref={hiddenTextarea}
+        style={{ position: "absolute", top: "-1000px", left: "-1000px" }}
+        readOnly
+      />
+
       <button
         onClick={handleCopy}
         className={`mt-2 px-4 py-2 text-white rounded text-sm transition-colors ${
