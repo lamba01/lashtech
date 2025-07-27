@@ -83,7 +83,7 @@ We look forward to seeing you!
 – The Mcken Beauty Salon Team`
     );
     await sendBookingEmail(
-      "moyinooluwafemi2004@gmail.com",
+      "kehindekafilat560@gmail.com",
       "New Booking Received",
       `📢 A new booking was just made!
 

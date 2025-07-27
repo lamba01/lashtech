@@ -13,7 +13,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         <div>
           <h2 className="text-2xl font-bold mb-2 capitalize">
-            Mcken <span className="text-[#FB7902]">beauty</span> place
+            Mcken <span className="text-[#E3BC9A]">beauty</span> place
           </h2>
           <p className="text-gray-300 text-sm mb-4">
             Where tranquility meets transformation. Pampering your skin, hair,

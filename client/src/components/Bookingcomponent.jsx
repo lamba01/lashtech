@@ -244,7 +244,7 @@ const BookingForm = () => {
         style={{ position: "relative", zIndex: 2 }}
       >
         <h2 className="text-3xl font-bold text-center">
-          <span className="text-[#FB7902]">Book</span> a Service
+          <span className="text-[#E3BC9A]">Book</span> a Service
         </h2>
         <div>
           <label className="block font-medium mb-1">Select Category</label>

@@ -43,8 +43,8 @@ function Testimonial() {
 
         <div className="relative bg-white rounded-xl shadow-md flex flex-col md:flex-row items-center justify-center sm:max-w-10/12 max-w-11/12 mx-auto px-6 sm:px-7 py-10 overflow-visible">
           {/* Outside quote icons */}
-          <FaQuoteLeft className="absolute -top-6 sm:-left-10 -left-4 text-6xl text-[#FB7902] z-0" />
-          <FaQuoteRight className="absolute -bottom-6 sm:-right-10 -right-4 text-6xl text-[#FB7902] z-0" />
+          <FaQuoteLeft className="absolute -top-6 sm:-left-10 -left-4 text-6xl text-[#E3BC9A] z-0" />
+          <FaQuoteRight className="absolute -bottom-6 sm:-right-10 -right-4 text-6xl text-[#E3BC9A] z-0" />
 
           {/* Client image list */}
           <div className="relative flex md:flex-col gap-4 mb-6 md:mb-0 md:mr-10 items-center">
