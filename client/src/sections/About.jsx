@@ -12,7 +12,7 @@ function About() {
       <div className="flex flex-col justify-between items-center py-2 mb-8">
         <h2 className="sm:text-4xl text-2xl w-11/12 sm:w-1/2 text-center mx-auto font-bold  mt-14">
           Enhance your inner radiance at our{" "}
-          <span className="text-[#E3BC9A]">beauty sanctuary</span> and let your
+          <span className="text-[#9d7450]">beauty sanctuary</span> and let your
           true beauty shine.
         </h2>
         <button className="bg-black text-white py-2 px-10 mt-5 sm:mt-5 h-fit capitalize cursor-pointer hover:bg-gray-800 transition-all duration-300">

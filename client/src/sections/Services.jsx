@@ -16,7 +16,7 @@ function Services() {
 
       <div className="flex flex-col-reverse md:flex-row items-center gap-10 max-w-5xl mx-auto">
         <div className="md:w-1/2" data-aos="flip-left">
-          <h3 className="text-2xl sm:text-3xl font-semibold mb-3 text-[#E3BC9A]">
+          <h3 className="text-2xl sm:text-3xl font-semibold mb-3 text-[#9d7450]">
             Meet Our Founder – Sanusi Kehinde
           </h3>
           <p className="text-sm sm:text-base text-gray-700 mb-4">

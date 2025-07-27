@@ -5,7 +5,7 @@ function Hero() {
   return (
     <section className="w-full h-screen pt-14 md:pt-12 flex flex-col sm:gap-2 gap-10 overflow-hidden">
       <div className="flex flex-col justify-center items-center text-center text-md h-[25%] sm:h-[40%] px-4 sm:px-0">
-        <p className="capitalize mt-7 font-semibold text-sm sm:text-lg text-[#E3BC9A]">
+        <p className="capitalize mt-7 font-semibold text-sm sm:text-lg text-[#9d7450]">
           where tranquility meets tranformation.
         </p>
         <h1 className="sm:text-4xl text-2xl w-full sm:w-1/2 font-bold">
