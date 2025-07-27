@@ -20,7 +20,7 @@ function Services() {
             Meet Our Founder – Sanusi Kehinde
           </h3>
           <p className="text-sm sm:text-base text-gray-700 mb-4">
-            Anita James is the passionate soul behind our salon. With over a
+            Sanusi Kehinde is the passionate soul behind our salon. With over a
             decade of hands-on experience in the beauty and wellness industry,
             she’s on a mission to help every client feel radiant, confident, and
             cared for.
