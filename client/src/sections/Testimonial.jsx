@@ -7,21 +7,21 @@ import profile from "../assets/profile.jpg";
 const testimonials = [
   {
     id: 1,
-    name: "Adeola Adebuwa",
+    name: "DeeDee",
     message:
       "Absolutely wonderful experience! The staff are so kind and the environment is serene. I’ll definitely return.",
     image: profile,
   },
   {
     id: 2,
-    name: "Amaka Obi",
+    name: "Amaka",
     message:
       "This salon exceeded my expectations! My skin feels amazing. Highly recommended for all beauty needs.",
     image: profile,
   },
   {
     id: 3,
-    name: "Zainab Bello",
+    name: "Zainab",
     message:
       "Professionalism at its peak. From the reception to the treatment, everything was perfect.",
     image: profile,

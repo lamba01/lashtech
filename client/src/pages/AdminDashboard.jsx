@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Modal from "react-modal";
 const ADMIN_UID = import.meta.env.VITE_ADMIN_UID;
+import ReminderTemplate from "../components/ReminderTemplates";
 
 const AdminDashboard = () => {
   const [bookings, setBookings] = useState([]);
@@ -125,7 +126,11 @@ const AdminDashboard = () => {
             {filtered.map((b) => (
               <tr key={b._id} className="border-t hover:bg-gray-50">
                 <td className="p-2 border">{b.name}</td>
-                <td className="p-2 border">{b.email}</td>
+                {/* <td className="p-2 border">{b.email}</td> */}
+                <td className="p-2 border text-blue-600 underline">
+                  <a href={`mailto:${b.email}`}>{b.email}</a>
+                </td>
+
                 <td className="p-2 border">
                   {" "}
                   {new Date(b.date).toLocaleDateString("en-US", {
@@ -158,13 +163,14 @@ const AdminDashboard = () => {
             ))}
           </tbody>
         </table>
+        <ReminderTemplate />
       </div>
 
       {/* Modal for date bookings */}
       <Modal
         isOpen={modalOpen}
         onRequestClose={() => setModalOpen(false)}
-        className="bg-white p-6 max-w-lg mx-auto mt-20 rounded shadow"
+        className="bg-white p-6 sm:max-w-lg w-3/4 mx-auto mt-20 rounded shadow"
         overlayClassName="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-start"
       >
         <h2 className="text-lg font-bold mb-4">
