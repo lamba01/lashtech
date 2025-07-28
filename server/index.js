@@ -6,16 +6,10 @@ const connectDB = require("./config/db");
 const bookingRoutes = require("./routes/bookingRoutes");
 
 const app = express();
-// Middleware
-// const corsOptions = {
-//   origin: "https://lashtech-sxaq.vercel.app", 
-//   credentials: true,
-// };
-
 const corsOptions = {
   origin: [
-    "https://lashtech-sxaq.vercel.app",
-    "http://localhost:5173", 
+    "https://www.lashesbrowsbeautyy.com.ng",
+    "https://lashesbrowsbeautyy.com.ng",
   ],
   credentials: true,
 };
