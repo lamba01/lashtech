@@ -9,7 +9,7 @@ import Bookings from "./pages/Bookings";
 import Footer from "./components/Footer";
 import Topnav from "./components/Topnav";
 import Admin from "./pages/AdminDashboard";
-import AutoLogoutWrapper from "./components/AutoLogoutWrapper";
+// import AutoLogoutWrapper from "./components/AutoLogoutWrapper";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -25,7 +25,8 @@ function App() {
     });
   }, []);
   return (
-    <AutoLogoutWrapper>
+    // <AutoLogoutWrapper>
+    <>
       {!hideNavAndFooter && <Topnav />}
       <Routes>
         <Route path="/register" element={<Signup />} />
@@ -36,7 +37,8 @@ function App() {
         <Route path="/admin" element={<Admin />} />
       </Routes>
       {!hideNavAndFooter && <Footer />}
-    </AutoLogoutWrapper>
+    </>
+    // </AutoLogoutWrapper>
   );
 }
 

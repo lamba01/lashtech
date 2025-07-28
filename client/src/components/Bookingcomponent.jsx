@@ -102,14 +102,6 @@ const BookingForm = () => {
   });
   const [total, setTotal] = useState(0);
   const { user } = useContext(AuthContext);
-  //   const navigate = useNavigate();
-  //   const [selectedDate, setSelectedDate] = useState(null);
-
-  //   const isWeekday = (date) => {
-  //     const day = date.getDay();
-  //     return day !== 0;
-  //   };
-
   const handleServiceToggle = (service) => {
     if (singleSelectCategories.includes(category)) {
       setSelectedServices([service]);
@@ -152,31 +144,6 @@ const BookingForm = () => {
 
     setTotal(newTotal);
   }, [category, selectedServices, lashAddOns]);
-
-  //   const handleSubmit = async (e) => {
-  //     e.preventDefault();
-
-  //     if (!user) {
-  //       alert("Please log in to book a service.");
-  //       navigate("/login");
-  //       return;
-  //     }
-  //     const res = await fetch(`${import.meta.env.VITE_API_URL}/bookings`, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         userId: user.uid,
-  //         category,
-  //         selectedServices,
-  //         lashAddOns,
-  //         total,
-  //         ...formData,
-  //       }),
-  //     });
-  //     const data = await res.json();
-  //     setShowSuccess(true);
-  //     console.log(data);
-  //   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
