@@ -213,6 +213,10 @@ const BookingForm = () => {
         <h2 className="text-3xl font-bold text-center">
           <span className="text-[#9d7450]">Book</span> a Service
         </h2>
+        <p className="text-sm text-gray-600 text-center mt-[-15px]">
+          🔐 A 30% deposit is required to secure your appointment. Payment
+          details will be provided after submission.
+        </p>
         <div>
           <label className="block font-medium mb-1">Select Category</label>
           <select

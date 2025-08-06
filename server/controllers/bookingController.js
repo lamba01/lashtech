@@ -66,21 +66,33 @@ const createBooking = async (req, res) => {
 
     await sendBookingEmail(
       email,
-      "Booking Confirmed – See You Soon!",
+      "Booking Received – Action Required to Confirm",
       `Hi ${name},
+      
+Thank you for booking with McKen Beauty Salon! 🎉
 
-Your booking has been confirmed! Here are the details:
+Here are your appointment details:
 
 📅 Date: ${formattedDate}  
-⏰ Time: ${time} (WAT) 
+⏰ Time: ${time} (WAT)  
 📂 Category: ${category}  
 🛍️ Services: ${formattedServices}${formattedAddOns}
 
-If you’d like to reschedule or view your appointment, you can do so anytime from your bookings page.
+🔐 *To confirm your booking, a 30% deposit is required.*
 
-We look forward to seeing you!
+Please make payment to the account below:
 
-– The Mcken Beauty Salon Team`
+Bank: Access Bank  
+Account Name: McKen_beauty 
+Account Number: 0098963369  
+
+After payment, kindly send your proof of payment via WhatsApp to: https://wa.me/2348183698673
+
+🕒 Please make the deposit within 24 hours to secure your slot.
+
+You can view or reschedule your appointment at any time from your bookings page.
+
+– The McKen Beauty Salon Team`
     );
     await sendBookingEmail(
       "kehindekafilat560@gmail.com",
